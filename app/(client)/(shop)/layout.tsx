@@ -6,6 +6,7 @@ import NavBar from '@/components/header/navBar';
 import Footer from '@/components/footer';
 import Header from '@/components/header';
 import BreadCrumbs from '@/components/breadcrumbs/Breadcrumbs';
+import { Suspense } from 'react';
 
 export const metadata: Metadata = {
     title: 'FresHHub',
@@ -28,7 +29,9 @@ export default function layout({ children }: { children: React.ReactNode }) {
             />
             <main>
                 <div className="container">
-                    <BreadCrumbs />
+                    <Suspense fallback={null}>
+                        <BreadCrumbs />
+                    </Suspense>
                     {children}
                 </div>
             </main>

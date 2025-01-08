@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Suspense } from 'react';
 import { Box, Typography } from '@mui/material';
 
 import DishCard from '@/components/dishcard';
@@ -14,7 +14,7 @@ type Props = {
 export default async function CategoryItem({ dishes, title, categoryName }: Props) {
 
     const getLink = (id: string, productName: string) =>
-        `/categories/${categoryName}/${id}/${productName?.trim().toLowerCase().replace(/\s+/g, '_')}`;
+        `/categories/${categoryName}/${id}/${productName?.trim()?.toLowerCase()?.replace(/\s+/g, '_')}`;
 
     return (
         <>
@@ -41,7 +41,11 @@ export default async function CategoryItem({ dishes, title, categoryName }: Prop
                 >
                     {title}
                 </Typography>
-                {dishes.length ? <SortSelect /> : null}
+                {
+                    dishes.length
+                        ? <Suspense fallback={null}><SortSelect /></Suspense>
+                        : null
+                }
             </Box>
             <section>
                 <Box

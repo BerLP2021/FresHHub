@@ -15,8 +15,8 @@ export default function BreadCrumbs() {
     const pathnames = usePathname();
 
     const params: {
-        category: string;
-        dishId: string[]; // т.к. ссылка на страницу с конкретным блюдом имеет вид  /122231/название_блюда
+        category?: string;
+        dishId?: string[]; // т.к. ссылка на страницу с конкретным блюдом имеет вид  /122231/название_блюда
     } = useParams();
 
     const searchParams = useSearchParams();
@@ -41,30 +41,30 @@ export default function BreadCrumbs() {
             const slugNames: {
                 [key: string]: string
             } = {};
-            if (params.category !== 'search') {
+            if (params.category && params.category !== 'search') {
                 const categories = await getCategories();
                 slugNames[params.category] = categories && categories.filter((item) => item.path === params.category)[0]?.name || '';
             }
             if (params.dishId) {
                 const dish = await getDishById(params.dishId[0]);
-                slugNames[params.dishId[0]] = dish && dish.productName || '';
+                slugNames[params.dishId[0]] = dish?.productName ?? '';
             }
             //формируем готовые хлебные крошки
             const isLastEl = (index: number) => {
-                return params.dishId ? index === (pathArray.length - 2) : index === (pathArray.length - 1)
+                return params.dishId
+                    ? index === (pathArray.length - 2)
+                    : index === (pathArray.length - 1)
             };
 
-            const breadcrumbs = pathArray.map((path, index) => {
-                if (path === 'categories') return;
+            const breadcrumbs = pathArray.reduce<Array<{ text: string; href: string }>>((acc, path, index) => {
+                if (path === 'categories') return acc;
                 const basePageIndex = basePages.findIndex((item) => item.path === path);
                 const text = basePages[basePageIndex]?.name || slugNames[path];
-                if (!text) return;
-                return {
-                    text,
-                    href: isLastEl(index) ? '' : (pathArray.slice(0, index + 1).join('/') || '/'),
-                };
-            });
-            setBreadcrumbs(breadcrumbs.filter(breadcrumbs => breadcrumbs !== undefined));
+                if (!text) return acc;
+                const href = isLastEl(index) ? '' : (pathArray.slice(0, index + 1).join('/') || '/');
+                return [...acc, { text, href }];
+            }, []);
+            setBreadcrumbs(breadcrumbs);
         })();
     }, [params, pathArray]);
 

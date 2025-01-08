@@ -13,8 +13,7 @@ const NavBarLinks = ({ data }: Props) => {
     const links = data.map((item) => item.path);
     return (
         <>
-            {links.map((link) => {
-                const catName = link;
+            {links.map((catName) => {
                 const isActive = pathname === catName;
                 return (
                     <Link href={`/categories/${catName}`} key={catName} tabIndex={-1}>

@@ -4,7 +4,7 @@ import { cookies } from 'next/headers';
 import { auth } from './auth';
 import { revalidatePath, revalidateTag } from 'next/cache';
 
-const url = process.env.SERV_URL || 'http://localhost:3000';
+const url = process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:3000';
 
 export async function orderAction(
     prevState: {
@@ -18,7 +18,6 @@ export async function orderAction(
         return {
             message: 'Unauthenticated user',
         };
-    console.log(Object.fromEntries(formData));
     const [day, month, year] =
         (formData.get('delivery_date') as string)?.split('.').map(Number) || '';
     const [hours, minutes] =

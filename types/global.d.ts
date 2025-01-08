@@ -10,6 +10,7 @@ type SortType = 'asc' | 'desc';
 
 type DishItem = {
     _id: Schema.Types.ObjectId;
+    categoryId: Schema.Types.ObjectId;
     photoUrl: string;
     productName: string;
     price: number;

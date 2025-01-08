@@ -1,7 +1,7 @@
 import { notFound } from 'next/navigation';
 
 import CategoryItem from '@/components/categoryItem/CategoryItem';
-import { getCategories, getDishes } from '@/actions/dishes';
+import { getCategories, getDishesByCategory, getDishesByName } from '@/actions/dishes';
 import { basePages } from '@/data/pages';
 
 type Props = {
@@ -25,6 +25,16 @@ const isValidSortType = (sort: string | undefined): sort is SortType => {
     return sort === 'asc' || sort === 'desc';
 }
 
+export async function generateStaticParams() {
+    const categories = await getCategories();
+    if (!categories?.length) return [];
+    return categories.map((category) => ({
+        category: category.path,
+    }));
+}
+
+export const dynamicParams = true;
+
 export default async function CategoryPage({ params, searchParams }: Props) {
     const { category } = params;
     const categories = await getCategories();
@@ -32,27 +42,26 @@ export default async function CategoryPage({ params, searchParams }: Props) {
     if (!categories?.length) return null;
 
     const categoriesPaths = categories.map(p => p.path);
-    const searchPath = basePages[0].path;
-    const pagesPaths = [...categoriesPaths, searchPath];
+
+    const pagesPaths = [...categoriesPaths, basePages[0].path /**Path for Search page*/];
 
     if (!pagesPaths?.some((item) => item === category)) return notFound();
 
-    const argsForFetchFnc: Parameters<typeof getDishes> = [category];
+    if (searchParams?.search) {
+        const dishes = await getDishesByName(searchParams.search);
+        if (!dishes?.length) return;
+        return dishes;
+    }
 
-    const queries: typeof argsForFetchFnc[1] = {};
-
-    if (isValidSortType(searchParams?.sort)) queries.sort = searchParams?.sort;
-    if (searchParams?.search) queries.search = searchParams?.search;
-
-    if (Object.keys(queries).length) argsForFetchFnc.push(queries);
-
-    const dishes = await getDishes(...argsForFetchFnc);
-
-    const title = category === searchPath ?
-        `Search for '${searchParams.search}'` :
-        categories.filter((item) => item.path === category)[0].name;
-
+    const dishes = await getDishesByCategory(
+        category, isValidSortType(searchParams?.sort)
+        ? searchParams?.sort
+        : undefined);
     if (!dishes?.length) return;
 
+    const title = category === basePages[0].path ?
+        `Search for '${searchParams?.search}'` :
+        categories.filter((item) => item.path === category)[0].name;
+    // console.log(dishes, title, category);
     return <CategoryItem dishes={dishes} title={title} categoryName={category} />;
 }

@@ -3,11 +3,11 @@ import { getServerSession, User } from 'next-auth';
 import { cookies } from 'next/headers';
 import { revalidatePath, revalidateTag } from 'next/cache';
 
-const url = process.env.SERV_URL || 'http://localhost:3000';
+const url = process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:3000';
 
 import type { GetServerSidePropsContext, NextApiRequest, NextApiResponse } from 'next';
 import { BaseUserByGoogle, UserDB } from '@/types/auth';
-import { authOptions } from '@/app/api/auth/[...nextauth]/route';
+import { authOptions } from '@/utils/authOptions';
 
 export async function auth(
     ...args:
@@ -46,7 +46,7 @@ export async function register(prevState: { message: string } | undefined, formD
             }),
         });
 
-        if (!res.ok) {
+        if (res.status !== 201) {
             {
                 const error = await res.text();
                 console.error('Error register user:', error);

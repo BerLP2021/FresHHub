@@ -25,7 +25,6 @@ export default function Header({ children }: Props) {
         }
     }, []);
 
-    console.log('header');
     return (
         <AppBar
             position="fixed"
@@ -46,7 +45,7 @@ export default function Header({ children }: Props) {
                         {BurgerMenu}
                         <Logo />
                         {Navbar}
-                        <Suspense>
+                        <Suspense fallback={null}>
                             <SearchInput />
                         </Suspense>
                         <Box sx={{ flexGrow: 0, display: 'flex' }}>

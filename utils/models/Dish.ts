@@ -4,6 +4,11 @@ const { Schema } = mongoose;
 
 const dishSchema = new Schema<DishItem>(
     {
+        categoryId: {
+            type: Schema.Types.ObjectId,
+            required: true,
+            ref: 'Category',
+        },
         productName: {
             type: String,
             unique: true,
