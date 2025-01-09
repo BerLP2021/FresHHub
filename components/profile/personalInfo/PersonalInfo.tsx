@@ -102,7 +102,6 @@ export default function PersonalInfo({ name, lastName, phoneNumber }: Props) {
                     flexDirection: 'column',
                     justifyContent: 'center',
                     alignItems: 'center',
-                    gap: state.message === 'Ok' ? { mobile: '20px', desktop: '24px' } : '0',
                 }}
             >
                 {/* временная лабуда для отслеживания ошибок сервера */}

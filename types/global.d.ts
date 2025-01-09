@@ -1,7 +1,7 @@
 type ProductCategory = 'burgers' | 'pizza' | 'salads' | 'desserts';
 
 type CategoryItem = {
-    _id: Schema.Types.ObjectId;
+    _id: string;
     name: string;
     path: string;
 };
@@ -9,8 +9,8 @@ type CategoryItem = {
 type SortType = 'asc' | 'desc';
 
 type DishItem = {
-    _id: Schema.Types.ObjectId;
-    categoryId: Schema.Types.ObjectId;
+    _id: string;
+    categoryId: string;
     photoUrl: string;
     productName: string;
     price: number;

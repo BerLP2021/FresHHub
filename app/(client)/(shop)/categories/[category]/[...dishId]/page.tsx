@@ -13,10 +13,10 @@ export async function generateStaticParams() {
 
     const res = categories.flatMap((category) =>
         dishes
-            .filter((dish) => dish.categoryId.toString() === category._id.toString())
+            .filter((dish) => dish.categoryId === category._id)
             .map((dish) => ({
                 category: category.path,
-                dishId: [dish._id.toString(), dish.productName.toLowerCase().replace(/\s+/g, '_')],
+                dishId: [dish._id, dish.productName.toLowerCase().replace(/\s+/g, '_')],
             }))
     );
     return res;

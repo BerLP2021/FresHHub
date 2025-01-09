@@ -1,8 +1,6 @@
-import mongoose from 'mongoose';
+import mongoose, { Schema } from 'mongoose';
 
-const { Schema } = mongoose;
-
-const categorySchema = new Schema<CategoryItem>(
+const categorySchema = new Schema<Omit<CategoryItem, '_id'> & { _id: Schema.Types.ObjectId }>(
     {
         name: {
             type: String,

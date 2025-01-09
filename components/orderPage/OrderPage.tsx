@@ -2,7 +2,7 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { useFormState } from 'react-dom';
 import { useRouter } from 'next/navigation';
-import { Box, CircularProgress, Typography } from '@mui/material';
+import { Box, Typography } from '@mui/material';
 
 import Contacts from './contacts/Contacts';
 import Address from './address/Address';
@@ -16,6 +16,7 @@ import Success from './success/Success';
 import { orderAction } from '@/actions/order';
 import { useCartStore } from '@/stores/Stores-providers';
 import StubBlock from '../stubBlock/StubBlock';
+import Loading from '../loading/Loading';
 
 export default function OrderPage() {
     const { replace } = useRouter();
@@ -50,16 +51,7 @@ export default function OrderPage() {
     return (
         <>
             {dishes === null || !dishes.length ? (
-                <Box
-                    sx={{
-                        display: 'flex',
-                        height: '50vh',
-                        alignItems: 'center',
-                        justifyContent: 'center',
-                    }}
-                >
-                    <CircularProgress />
-                </Box>
+                <Loading />
             ) : (
                 <Box
                     component={'form'}
@@ -71,6 +63,11 @@ export default function OrderPage() {
                         marginTop: { mobile: '14px', tablet: '24px', desktop: '36px' },
                         columnGap: { mobile: '0px', desktop: '107px' },
                         rowGap: { mobile: '20px', tablet: '36px', desktop: '0px' },
+                        pb: {
+                            mobile: '40px',
+                            tablet: '50px',
+                            desktop: '120px',
+                        }
                     }}
                 >
                     <Box
