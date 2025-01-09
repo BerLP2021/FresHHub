@@ -62,6 +62,5 @@ export default async function CategoryPage({ params, searchParams }: Props) {
     const title = category === basePages[0].path ?
         `Search for '${searchParams?.search}'` :
         categories.filter((item) => item.path === category)[0].name;
-    // console.log(dishes, title, category);
     return <CategoryItem dishes={dishes} title={title} categoryName={category} />;
 }

@@ -4,6 +4,7 @@ import { Box, Typography } from '@mui/material';
 import DishCard from '@/components/dishcard';
 import SortSelect from '@/components/sortSelect/SortSelect';
 import StubBlock from '../stubBlock/StubBlock';
+import Loading from '../loading/Loading';
 
 type Props = {
     title: string;
@@ -21,6 +22,7 @@ export default async function CategoryItem({ dishes, title, categoryName }: Prop
             <Box
                 sx={{
                     display: 'flex',
+                    flex: 1,
                     justifyContent: 'space-between',
                     alignContent: 'center',
                     margin: {
@@ -65,6 +67,11 @@ export default async function CategoryItem({ dishes, title, categoryName }: Prop
                             desktop: '40px',
                         },
                         justifyContent: `${dishes.length ? 'flex-start' : 'center'}`,
+                        pb: {
+                            mobile: '40px',
+                            tablet: '50px',
+                            desktop: '120px',
+                        }
                     }}
                 >
                     {dishes.length ? (
@@ -76,4 +83,5 @@ export default async function CategoryItem({ dishes, title, categoryName }: Prop
             </section>
         </>
     );
+    return <Loading />
 }

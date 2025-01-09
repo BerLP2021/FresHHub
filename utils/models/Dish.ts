@@ -1,8 +1,11 @@
-import mongoose from 'mongoose';
+import mongoose, { Schema } from 'mongoose';
 
-const { Schema } = mongoose;
-
-const dishSchema = new Schema<DishItem>(
+const dishSchema = new Schema<
+    Omit<DishItem, '_id' | 'categoryId'> & {
+        _id: Schema.Types.ObjectId;
+        categoryId: Schema.Types.ObjectId;
+    }
+>(
     {
         categoryId: {
             type: Schema.Types.ObjectId,

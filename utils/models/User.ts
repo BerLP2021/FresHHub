@@ -50,13 +50,4 @@ const userSchema = new Schema<UserDB>(
     },
 );
 
-// userSchema.set('toJSON', {
-//     virtuals: true,
-//     transform: function (doc, ret) {
-//         delete ret._id;
-//         delete ret.__v;
-//         return ret;
-//     },
-// });
-
 export default mongoose.models.User || mongoose.model('User', userSchema);

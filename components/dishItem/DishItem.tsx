@@ -1,4 +1,6 @@
 import Image from 'next/image';
+import { Box } from '@mui/material';
+import { Oswald } from 'next/font/google';
 
 import AddToCartForm from '../addToCartForm/AddToCartForm';
 
@@ -6,7 +8,6 @@ import Card from '@/public/images/credit-card.png';
 import Delivery from '@/public/images/delivery-truck.png';
 
 import styles from './dishItem.module.scss';
-import { Oswald } from 'next/font/google';
 
 const oswald = Oswald({
     subsets: ['latin'],
@@ -20,7 +21,13 @@ const DishItem = ({ dish }: Props) => {
     const { photoUrl, productName, price, description, weight } = dish;
     return (
         <section className={styles.dishItem}>
-            <div className={styles.wrapper}>
+            <Box className={styles.wrapper} sx={{
+                pb: {
+                    mobile: '40px',
+                    tablet: '50px',
+                    desktop: '120px',
+                }
+            }}>
                 <div className={styles.picture}>
                     <Image
                         src={photoUrl}
@@ -54,7 +61,7 @@ const DishItem = ({ dish }: Props) => {
                         </div>
                     </div>
                 </div>
-            </div>
+            </Box>
         </section>
     );
 };

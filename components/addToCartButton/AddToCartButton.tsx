@@ -17,7 +17,7 @@ const AddToCartButton = ({ dish, simple = true }: { dish: DishInCart; simple?: b
     if (simple) {
         content = 'Add';
     } else {
-        isInCart = dishes?.findIndex((item) => item._id === dish._id) !== -1;
+        isInCart = dishes ? dishes.findIndex((item) => item._id == dish._id) !== -1 : false;
         content = isInCart ? '✓' : 'Add';
     }
 

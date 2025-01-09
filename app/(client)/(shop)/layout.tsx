@@ -1,12 +1,12 @@
+import { Suspense } from 'react';
 import { Metadata } from 'next';
-import { Toolbar } from '@mui/material';
+import { Box, Toolbar } from '@mui/material';
 
 import NavMenu from '@/components/header/navMenu';
 import NavBar from '@/components/header/navBar';
 import Footer from '@/components/footer';
 import Header from '@/components/header';
 import BreadCrumbs from '@/components/breadcrumbs/Breadcrumbs';
-import { Suspense } from 'react';
 
 export const metadata: Metadata = {
     title: 'FresHHub',
@@ -27,13 +27,21 @@ export default function layout({ children }: { children: React.ReactNode }) {
                     },
                 }}
             />
-            <main>
-                <div className="container">
+            <main style={{
+                height: '100%',
+                display: 'flex',
+                flexDirection: 'column',
+            }}>
+                <Box className="container" sx={{
+                    display: 'flex',
+                    flexDirection: 'column',
+                    flexGrow: 1,
+                }}>
                     <Suspense fallback={null}>
                         <BreadCrumbs />
                     </Suspense>
                     {children}
-                </div>
+                </Box>
             </main>
 
             <Footer />

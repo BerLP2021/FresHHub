@@ -10,18 +10,19 @@
 }
 
 .picture {
-    min-width: 49%;
+    width: 49%;
     // height: 635px;
     position: relative;
     border-radius: 40px;
     overflow: hidden;
+
     img {
         object-fit: cover;
     }
 }
 
 .contentWrapper {
-    // width: 45.61%;
+    width: 45.61%;
 }
 
 .title {
@@ -81,7 +82,7 @@
     font-weight: 700;
 }
 
-.description + .delivery {
+.description+.delivery {
     margin-top: -14px;
 }
 
@@ -111,12 +112,14 @@
     .dishItem {
         padding-top: 24px;
     }
+
     .wrapper {
         flex-direction: column;
         align-items: center;
 
         gap: 24px;
     }
+
     .picture {
         min-width: 100%;
         height: 435px;
@@ -139,6 +142,7 @@
 
     .titleInfo {
         margin-bottom: 9px;
+
         h4 {
             font-size: 24px;
         }
@@ -162,7 +166,7 @@
         line-height: 41.5px;
     }
 
-    .description + .delivery {
+    .description+.delivery {
         margin-top: -16px;
     }
 
@@ -177,9 +181,11 @@
     .dishItem {
         padding-top: 16px;
     }
+
     .wrapper {
         gap: 16px;
     }
+
     .picture {
         height: 248px;
     }
@@ -191,6 +197,7 @@
 
     .titleInfo {
         margin-bottom: 10px;
+
         h4 {
             font-size: 20px;
         }
@@ -214,11 +221,11 @@
         line-height: 35.57px;
     }
 
-    .description + .delivery {
+    .description+.delivery {
         margin-top: -10px;
     }
 
-    .cardInfo + .description {
+    .cardInfo+.description {
         font-size: 14px;
     }
 

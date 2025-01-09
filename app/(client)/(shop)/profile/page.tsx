@@ -37,6 +37,11 @@ export default async function Page({ searchParams }: Props) {
                     desktop: '60px', //88px
                 },
                 mt: { mobile: '14px', tablet: '24px', desktop: '14px' },
+                pb: {
+                    mobile: '40px',
+                    tablet: '50px',
+                    desktop: '120px',
+                }
             }}
         >
             <Box
